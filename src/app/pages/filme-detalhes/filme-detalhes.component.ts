@@ -89,14 +89,14 @@ export class FilmeDetalhesComponent {
 
   atualizarFavoritos(): void {
     if(this.historico.filmes_ids.includes(this.filmeDetalhes.id)) {
-      this.toastService.success('Filme adicionado a lista de favoritos', 'Success');
+      this.toastService.success('Filme retirado da lista de favoritos', 'Success');
       this.historico.filmes_ids = this.historico.filmes_ids
         .filter(f => f != this.filmeDetalhes.id);
         this.ehFavorito = false;
     }
 
     else {
-      this.toastService.success('Filme retirado da lista de favoritos', 'Success');
+      this.toastService.success('Filme adicionado a lista de favoritos', 'Success');
       this.historico.filmes_ids.push(this.filmeDetalhes.id);
       this.ehFavorito = true;
     }
