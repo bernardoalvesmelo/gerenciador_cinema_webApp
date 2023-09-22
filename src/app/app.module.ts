@@ -32,6 +32,7 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 5000,
+      positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
   ],

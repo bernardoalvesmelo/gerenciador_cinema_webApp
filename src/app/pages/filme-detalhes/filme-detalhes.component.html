@@ -1,13 +1,13 @@
 <section>
 <div class="container d-grid gap-3 my-4">
     <div class="d-flex align-items-center">
-        <h1 class="text-dark">{{filmeDetalhes.titulo}}
+        <h1 class="text-primary-dark">{{filmeDetalhes.titulo}}
           <p class="d-block fs-3 text-dark" id="dataLancamento">{{filmeDetalhes.data.split('-')[0]}}</p>
         </h1>
         <div class="ms-auto text-end">
           <p class="text-dark">{{filmeDetalhes.nota}} / 10</p>
           <p class="text-dark">{{filmeDetalhes.votos}} Votos</p>
-          <i id="lblFavorito" [ngClass]="ehFavorito ? 'bi bi-heart-fill fs-2 text-warning' : 'bi bi-heart fs-2 text-warning' "
+          <i id="lblFavorito" [ngClass]="ehFavorito ? 'bi bi-heart-fill fs-2 text-primary' : 'bi bi-heart fs-2 text-primary' "
           role="button" (click)="atualizarFavoritos()">
           </i>
         
@@ -35,7 +35,7 @@
       </div>
 
       <div id="pnlGeneros" class="d-flex gap-3">
-        <span *ngFor="let genero of filmeDetalhes.generos" class="badge rounded-pill fs-5 px-4 py-2 bg-warning text-dark">
+        <span *ngFor="let genero of filmeDetalhes.generos" class="badge rounded-pill fs-5 px-4 py-2 bg-primary text-light">
             {{genero}}
         </span>
       </div>

@@ -1,7 +1,9 @@
 .lbl-selecionado {
-    text-decoration: underline;
+    color: #29108d !important;
+    background-color: rgb(230, 236, 242) !important;
 }
 
 #lblEmAlta:hover, #lblFavoritos:hover, #lblMelhoresAvaliados:hover {
-    color: #29108d !important;
+    color: #4d22f8 !important;
+    background-color: rgb(232, 238, 243) !important;
 }
