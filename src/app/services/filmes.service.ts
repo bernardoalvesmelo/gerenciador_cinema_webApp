@@ -7,6 +7,7 @@ import { Filme } from '../models/listagem-filme';
 import { FilmeDetalhes } from '../models/filme-detalhes';
 import { FilmeCreditos } from '../models/filme-creditos';
 import { FilmeTrailer } from '../models/filme-trailer';
+import { Avaliacao } from '../models/filme-avaliacao';
 
 @Injectable({
   providedIn: 'root'
@@ -75,6 +76,7 @@ export class FilmesService {
   }
 
   public selecionarTrailerPorId(id: number): Observable<FilmeTrailer> {
+    this.selecionarAvaliacoesPorId(id);
     const url = `https://api.themoviedb.org/3/movie/${id}/videos?language=pt-BR`;
 
     return this.http.get<any>(url, this.obterHeaderAutorizacao())
@@ -82,6 +84,16 @@ export class FilmesService {
       map(obj => obj.results),
       map(results => this.mapearFilmeTrailer(results))
     );
+  }
+
+  public selecionarAvaliacoesPorId(id: number) {
+    const url = `https://api.themoviedb.org/3/movie/${id}/reviews?language=pt-BR`;
+
+    return this.http.get<any>(url, this.obterHeaderAutorizacao())
+      .pipe(
+        map(obj => obj.results),
+        map(results => this.mapearAvaliacoes(results))
+      );
   }
 
   private obterHeaderAutorizacao() {
@@ -143,5 +155,22 @@ export class FilmesService {
 
     const filmesMapeados = obj.map(filme => this.mapearFilme(filme));
     return filmesMapeados;
+  }
+
+  private mapearAvaliacoes(obj: any[]): Avaliacao[] {
+    const avaliacoesMapeadas = obj.map(avaliacao => this.mapearAvaliacao(avaliacao));
+    console.log(avaliacoesMapeadas);
+    return avaliacoesMapeadas;
+  }
+
+  private mapearAvaliacao(obj: any): Avaliacao {
+    console.log(obj);
+    return {
+      usuario: obj.author_details.username,
+      caminho_avatar: obj.author_details.avatar_path ?? "",
+      nota: obj.author_details.rating,
+      conteudo: obj.content,
+      data_atualizacao: obj.updated_at
+    }
   }
 }

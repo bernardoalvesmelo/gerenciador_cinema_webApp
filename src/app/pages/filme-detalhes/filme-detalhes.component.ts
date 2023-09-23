@@ -8,6 +8,7 @@ import { FilmesService } from 'src/app/services/filmes.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { HistoricoUsuario } from 'src/app/models/historico-usuario';
 import { ToastrService } from 'ngx-toastr';
+import { Avaliacao } from 'src/app/models/filme-avaliacao';
 
 @Component({
   selector: 'app-filme-detalhes',
@@ -18,6 +19,7 @@ export class FilmeDetalhesComponent {
   filmeDetalhes: FilmeDetalhes;
   filmeTrailer: FilmeTrailer;
   filmeCreditos: FilmeCreditos;
+  filmeAvaliacoes: Avaliacao[];
   imagem_url: string;
   video_url: string;
   ehFavorito: boolean;
@@ -51,6 +53,8 @@ export class FilmeDetalhesComponent {
       atores: [],
     };
 
+    this.filmeAvaliacoes = [];
+
     this.historico = new HistoricoUsuario();
 
     this.imagem_url = "";
@@ -76,6 +80,10 @@ export class FilmeDetalhesComponent {
 
     this.filmeService.selecionarCreditosFilmePorId(id).subscribe(filmeCreditos => {
       this.filmeCreditos = filmeCreditos;
+    });
+
+    this.filmeService.selecionarAvaliacoesPorId(id).subscribe(filmeAvaliacoes => {
+      this.filmeAvaliacoes = filmeAvaliacoes;
     });
   }
 

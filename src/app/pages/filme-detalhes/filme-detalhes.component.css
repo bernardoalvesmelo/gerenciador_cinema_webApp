@@ -1,0 +1,8 @@
+.quebra-linha {
+    word-wrap: break-word;
+  }
+
+.avatar-img {
+    width: 50px;
+    height: 50px;
+}
