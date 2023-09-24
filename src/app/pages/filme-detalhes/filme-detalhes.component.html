@@ -9,7 +9,8 @@
                 <p class="text-dark">{{filmeDetalhes.votos}} Votos</p>
                 <i id="lblFavorito"
                     [ngClass]="ehFavorito ? 'bi bi-heart-fill fs-2 text-primary' : 'bi bi-heart fs-2 text-primary' "
-                    role="button" (click)="atualizarFavoritos()">
+                    role="button" (click)="atualizarFavoritos()" 
+                    [ngbTooltip]="ehFavorito ? 'retirar dos favoritos' : 'adicionar aos favoritos'" placement="left">
                 </i>
 
             </div>

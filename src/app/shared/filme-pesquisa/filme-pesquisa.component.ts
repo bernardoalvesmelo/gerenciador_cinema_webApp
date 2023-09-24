@@ -16,5 +16,6 @@ export class FilmePesquisaComponent {
 
   tituloSelecionado(): void {
     this.onTituloSelecionado.emit(this.titulo);
+    this.titulo = '';
   }
 }

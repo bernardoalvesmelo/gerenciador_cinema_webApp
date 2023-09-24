@@ -1,23 +1,28 @@
 <div class="container d-grid gap-3">
-    <app-filme-pesquisa (onTituloSelecionado)="selecionarFilmesPorTitulo($event)"></app-filme-pesquisa>
     <div class="row gap-3">
-        <h2 id="lblEmAlta" [class.lbl-selecionado]="listagemTipo == 'populares'"
-            class="col fw-semibold text-dark text-center bg-light rounded-3 my-2" (click)="selecionarFilmesPopulares()"
-            role="button">
+        <p [class.lbl-selecionado]="listagemTipo == 'populares'"
+            class="lbl-categoria col fw-semibold text-dark text-center fs-5 bg-light rounded-3 my-2"
+            (click)="selecionarFilmesPopulares()" role="button">
             Filmes em Alta
-        </h2>
-        <h2 id="lblFavoritos" [class.lbl-selecionado]="listagemTipo == 'favoritos'"
-            class="col fw-semibold text-dark text-center bg-light rounded-3 my-2" (click)="selecionarFavoritos()"
-            role="button">
-            Filmes Favoritos
-        </h2>
-        <h2 id="lblMelhoresAvaliados" [class.lbl-selecionado]="listagemTipo == 'avaliados'"
-            class="col fw-semibold text-center text-dark bg-light rounded-3 my-2"
+        </p>
+        <p [class.lbl-selecionado]="listagemTipo == 'avaliados'"
+            class="lbl-categoria col fw-semibold text-center text-dark fs-5 bg-light rounded-3 my-2"
             (click)="selecionarFilmesMelhoresAvaliados()" role="button">
             Filmes Por Nota
-        </h2>
+        </p>
+        <p [class.lbl-selecionado]="listagemTipo == 'favoritos'"
+            class="lbl-categoria col fw-semibold text-dark text-center fs-5 bg-light rounded-3 my-2"
+            (click)="selecionarFavoritos()" role="button">
+            Filmes Favoritos
+        </p>
+        <p [class.lbl-selecionado]="listagemTipo == 'pesquisados'"
+            class="lbl-categoria col fw-semibold text-dark text-center fs-5 bg-light rounded-3 my-2"
+            (click)="selecionarFilmesPorTitulo()" role="button">
+            Pesquisar Filmes
+        </p>
     </div>
-    <div id="pnlFilmes" class="row g-3 mb-3">
+    <app-filme-pesquisa *ngIf="listagemTipo == 'pesquisados' " (onTituloSelecionado)="selecionarFilmesPorTitulo($event)"></app-filme-pesquisa>
+    <div class="row g-3 mb-3">
         <app-card-filme *ngFor="let filme of filmes" [filme]="filme" class="col-6 col-md-4 col-lg-2"></app-card-filme>
     </div>
     <app-pagination *ngIf="ehPaginado" class="d-flex justify-content-center"

@@ -3,7 +3,7 @@
     background-color: rgb(230, 236, 242) !important;
 }
 
-#lblEmAlta:hover, #lblFavoritos:hover, #lblMelhoresAvaliados:hover {
+.lbl-categoria:hover {
     color: #4d22f8 !important;
     background-color: rgb(232, 238, 243) !important;
 }

@@ -66,9 +66,14 @@ export class HomeComponent implements OnInit{
     });
   }
 
-  selecionarFilmesPorTitulo(titulo: string) {
+  selecionarFilmesPorTitulo(titulo?: string) {  
     this.listagemTipo = 'pesquisados';
     this.ehPaginado = false;
+
+    if(!titulo) {
+      this.filmes = [];
+      return;
+    }
 
     this.filmesService.selecionarFilmesPorTitulo(titulo).subscribe(filmes => {
       this.filmes = filmes;
