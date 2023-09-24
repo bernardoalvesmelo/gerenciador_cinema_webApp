@@ -13,6 +13,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { CardFilmeComponent } from './shared/card-filme/card-filme.component';
 import { FilmeDetalhesComponent } from './pages/filme-detalhes/filme-detalhes.component';
 import { PaginationComponent } from './shared/pagination/pagination.component';
+import { FilmePesquisaComponent } from './shared/filme-pesquisa/filme-pesquisa.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,11 +23,13 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
     NavbarComponent,
     CardFilmeComponent,
     FilmeDetalhesComponent,
-    PaginationComponent
+    PaginationComponent,
+    FilmePesquisaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     NgbModule,
     HttpClientModule,
     NgbPaginationModule,

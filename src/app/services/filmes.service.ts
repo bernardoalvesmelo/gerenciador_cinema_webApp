@@ -25,6 +25,18 @@ export class FilmesService {
       );
   }
 
+  public selecionarFilmesPorTitulo(titulo: string): Observable<Filme[]> {
+    const query: string  = titulo.split(' ').join('+');
+
+    const url = `https://api.themoviedb.org/3/search/movie?include_adult=false&query=${query}&language=pt-BR&page=1`;
+
+    return this.http.get<any>(url, this.obterHeaderAutorizacao())
+      .pipe(
+        map(obj => obj.results),
+        map(results => this.mapearFilmes(results))
+      );
+  }
+
   public selecionarDetalhesFilmePorId(id: number): Observable<FilmeDetalhes> {
     const url = `https://api.themoviedb.org/3/movie/${id}?language=pt-BR`;
 
@@ -159,12 +171,10 @@ export class FilmesService {
 
   private mapearAvaliacoes(obj: any[]): Avaliacao[] {
     const avaliacoesMapeadas = obj.map(avaliacao => this.mapearAvaliacao(avaliacao));
-    console.log(avaliacoesMapeadas);
     return avaliacoesMapeadas;
   }
 
   private mapearAvaliacao(obj: any): Avaliacao {
-    console.log(obj);
     return {
       usuario: obj.author_details.username,
       caminho_avatar: obj.author_details.avatar_path ?? "",
