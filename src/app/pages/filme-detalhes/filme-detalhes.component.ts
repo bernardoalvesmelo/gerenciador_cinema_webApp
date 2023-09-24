@@ -20,6 +20,7 @@ export class FilmeDetalhesComponent {
   filmeTrailer: FilmeTrailer;
   filmeCreditos: FilmeCreditos;
   filmeAvaliacoes: Avaliacao[];
+  avaliacaoVisivel: boolean;
   imagem_url: string;
   video_url: string;
   ehFavorito: boolean;
@@ -59,6 +60,7 @@ export class FilmeDetalhesComponent {
 
     this.imagem_url = "";
     this.video_url = "";
+    this.avaliacaoVisivel = false;
     this.ehFavorito = false;
   }
 
@@ -110,5 +112,9 @@ export class FilmeDetalhesComponent {
     }
 
     this.localStorageService.salvarDados(this.historico);
+  }
+
+  alterarVisualizacaoAvaliacoes() {
+    this.avaliacaoVisivel = !this.avaliacaoVisivel;
   }
 }
