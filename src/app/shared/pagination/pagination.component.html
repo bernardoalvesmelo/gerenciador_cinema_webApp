@@ -1,7 +1,7 @@
 <ngb-pagination
 [collectionSize]="1000"
 [(page)]="page"
-[maxSize]="10"
+[maxSize]="tamanho_tela >= 500 ? 7 : 3"
 [rotate]="true"
 [ellipses]="false"
 [boundaryLinks]="true"
