@@ -9,7 +9,7 @@
                 <p class="text-dark">{{filmeDetalhes.votos}} Votos</p>
                 <i id="lblFavorito"
                     [ngClass]="ehFavorito ? 'bi bi-heart-fill fs-2 text-primary' : 'bi bi-heart fs-2 text-primary' "
-                    role="button" (click)="atualizarFavoritos()" 
+                    role="button" (click)="atualizarFavoritos()"
                     [ngbTooltip]="ehFavorito ? 'retirar dos favoritos' : 'adicionar aos favoritos'" placement="left">
                 </i>
 
@@ -67,24 +67,15 @@
                 </p>
             </div>
             <span *ngIf="filmeAvaliacoes.length" class="d-flex justify-content-center">
-            <button (click)="alterarVisualizacaoAvaliacoes()"
-                [ngClass]="avaliacaoVisivel ? 'btn-ocultar text-light bg-dark' : 'btn-visualizar text-dark bg-light' "
-                class="my-5 text-center w-50 rounded-pill">
-                <h2>{{avaliacaoVisivel ? 'Ocultar Avaliações' : 'Visualizar Avaliações'}}</h2>
-            </button>
+                <button (click)="alterarVisualizacaoAvaliacoes()"
+                    [ngClass]="avaliacaoVisivel ? 'btn-ocultar text-light bg-dark' : 'btn-visualizar text-dark bg-light' "
+                    class="my-5 text-center w-50 rounded-pill">
+                    <h2>{{avaliacaoVisivel ? 'Ocultar Avaliações' : 'Visualizar Avaliações'}}</h2>
+                </button>
             </span>
             <div *ngIf="avaliacaoVisivel" class="container-fluid">
-                <div *ngFor="let avaliacao of filmeAvaliacoes"
-                    class="d-grid w-90 ml-auto border border-dark bg-light rounded-3 my-3">
-                    <div class="d-flex gap-2 border-solid-dark p-2 mx-3">
-                        <img [src]="'https://image.tmdb.org/t/p/w200' + avaliacao.caminho_avatar"
-                            class="avatar-img img-fluid rounded-3" />
-                        <p class="text-primary my-3">{{avaliacao.usuario}}</p>
-                        <p class="my-3"><b>Nota: </b>{{avaliacao.nota}}</p>
-                        <p class="my-3"><b>Última edição: </b>{{avaliacao.data_atualizacao | date}}</p>
-                    </div>
-                    <p class="quebra-linha p-2 border border-gray bg-white rounded-3 m-3">{{avaliacao.conteudo}}</p>
-                </div>
+                <app-card-avaliacao *ngFor="let avaliacao of filmeAvaliacoes"
+                    [avaliacao]="avaliacao"></app-card-avaliacao>
             </div>
         </div>
     </div>
