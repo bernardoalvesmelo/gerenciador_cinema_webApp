@@ -93,10 +93,6 @@ export class FilmeDetalhesComponent {
     return lista.map((c, i) => i == 0 ? c : ' º ' + c ).join('');
   }
 
-  obterVideoUrl(): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.video_url);
-  }
-
   atualizarFavoritos(): void {
     if(this.historico.filmes_ids.includes(this.filmeDetalhes.id)) {
       this.toastService.success('Filme retirado da lista de favoritos', 'Success');
