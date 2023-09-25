@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HistoricoUsuario } from 'src/app/models/historico-usuario';
 import { Filme } from 'src/app/models/listagem-filme';
 import { FilmesService } from 'src/app/services/filmes.service';
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit{
   constructor(
     private filmesService: FilmesService,
     private localStorageService: LocalStorageService,
+    private router: Router
     ) {
       this.historico = new HistoricoUsuario();
       this.listagemTipo = 'populares';
@@ -79,9 +81,10 @@ export class HomeComponent implements OnInit{
       return;
     }
 
-    this.filmesService.selecionarFilmesPorTitulo(titulo).subscribe(filmes => {
-      this.filmes = filmes;
-    });
+    this.router.navigate(
+      ['/busca'],
+      { queryParams: { query: titulo} }
+    );
   }
 
   paginaSelecionada(pagina: number) {

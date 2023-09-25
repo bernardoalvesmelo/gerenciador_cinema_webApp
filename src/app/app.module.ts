@@ -16,6 +16,7 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
 import { FilmePesquisaComponent } from './shared/filme-pesquisa/filme-pesquisa.component';
 import { FormsModule } from '@angular/forms';
 import { CardAvaliacaoComponent } from './shared/card-avaliacao/card-avaliacao.component';
+import { BuscaComponent } from './pages/busca/busca.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CardAvaliacaoComponent } from './shared/card-avaliacao/card-avaliacao.c
     FilmeDetalhesComponent,
     PaginationComponent,
     FilmePesquisaComponent,
-    CardAvaliacaoComponent
+    CardAvaliacaoComponent,
+    BuscaComponent
   ],
   imports: [
     BrowserModule,

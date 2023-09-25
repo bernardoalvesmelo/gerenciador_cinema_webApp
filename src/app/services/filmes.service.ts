@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Filme } from '../models/listagem-filme';
 import { FilmeDetalhes } from '../models/filme-detalhes';
@@ -34,6 +34,18 @@ export class FilmesService {
       .pipe(
         map(obj => obj.results),
         map(results => this.mapearFilmes(results))
+      );
+  }
+
+  public selecionarFilmesDetalhesPorTitulo(titulo: string): Observable<FilmeDetalhes[]> {
+    const query: string  = titulo.split(' ').join('+');
+
+    const url = `https://api.themoviedb.org/3/search/movie?include_adult=false&query=${query}&language=pt-BR&page=1`;
+
+    return this.http.get<any>(url, this.obterHeaderAutorizacao())
+      .pipe(
+        map(obj => obj.results),
+        map(results => this.mapearFilmesDetalhes(results))
       );
   }
 
@@ -88,7 +100,6 @@ export class FilmesService {
   }
 
   public selecionarTrailerPorId(id: number): Observable<FilmeTrailer> {
-    this.selecionarAvaliacoesPorId(id);
     const url = `https://api.themoviedb.org/3/movie/${id}/videos?language=pt-BR`;
 
     return this.http.get<any>(url, this.obterHeaderAutorizacao())
@@ -126,7 +137,7 @@ export class FilmesService {
   }
 
   private mapearDetalhesFilme(obj: any): FilmeDetalhes {
-    const apiGeneros: any[] = obj.genres;
+    const apiGeneros: any[] = obj.genres ?? [];
 
     return {
       id: obj.id,
@@ -166,6 +177,12 @@ export class FilmesService {
   private mapearFilmes(obj: any[]): Filme[] {
 
     const filmesMapeados = obj.map(filme => this.mapearFilme(filme));
+    return filmesMapeados;
+  }
+
+  private mapearFilmesDetalhes(obj: any[]): FilmeDetalhes[] {
+    console.log(obj);
+    const filmesMapeados = obj.map(filme => this.mapearDetalhesFilme(filme));
     return filmesMapeados;
   }
 
