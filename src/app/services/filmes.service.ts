@@ -8,6 +8,7 @@ import { FilmeDetalhes } from '../models/filme-detalhes';
 import { FilmeCreditos } from '../models/filme-creditos';
 import { FilmeTrailer } from '../models/filme-trailer';
 import { Avaliacao } from '../models/filme-avaliacao';
+import { FilmeBusca } from '../models/filme-busca';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class FilmesService {
       );
   }
 
-  public selecionarFilmesDetalhesPorTitulo(titulo: string): Observable<FilmeDetalhes[]> {
+  public selecionarFilmesBuscaPorTitulo(titulo: string): Observable<FilmeBusca[]> {
     const query: string  = titulo.split(' ').join('+');
 
     const url = `https://api.themoviedb.org/3/search/movie?include_adult=false&query=${query}&language=pt-BR&page=1`;
@@ -45,7 +46,7 @@ export class FilmesService {
     return this.http.get<any>(url, this.obterHeaderAutorizacao())
       .pipe(
         map(obj => obj.results),
-        map(results => this.mapearFilmesDetalhes(results))
+        map(results => this.mapearFilmesBusca(results))
       );
   }
 
@@ -151,6 +152,18 @@ export class FilmesService {
     }
   }
 
+  private mapearFilmeBusca(obj: any): FilmeBusca {
+    const apiGeneros: any[] = obj.genres ?? [];
+
+    return {
+      id: obj.id,
+      titulo: obj.title,
+      poster: obj.poster_path,
+      data: obj.release_date,
+      descricao: obj.overview
+    }
+  }
+
   private mapearCreditosFilme(obj: any[]): FilmeCreditos {
     let creditos = {
       diretores: obj.filter(c => c.known_for_department == "Directing")?.map(c => c.name),
@@ -181,8 +194,13 @@ export class FilmesService {
   }
 
   private mapearFilmesDetalhes(obj: any[]): FilmeDetalhes[] {
-    console.log(obj);
     const filmesMapeados = obj.map(filme => this.mapearDetalhesFilme(filme));
+    return filmesMapeados;
+  }
+
+  
+  private mapearFilmesBusca(obj: any[]): FilmeBusca[] {
+    const filmesMapeados = obj.map(filme => this.mapearFilmeBusca(filme));
     return filmesMapeados;
   }
 
