@@ -5,10 +5,10 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@a
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.css']
 })
-export class PaginationComponent implements OnInit{
+export class PaginationComponent implements OnInit {
   @Input() page: number;
   tamanho_tela: number;
-  
+
   @Output() onPaginaSelecionada: EventEmitter<number>;
 
   constructor() {
@@ -18,7 +18,7 @@ export class PaginationComponent implements OnInit{
   }
 
   ngOnInit(): void {
-      this.tamanho_tela = window.innerWidth;
+    this.tamanho_tela = window.innerWidth;
   }
 
   paginaSelecionada(pagina: number): void {

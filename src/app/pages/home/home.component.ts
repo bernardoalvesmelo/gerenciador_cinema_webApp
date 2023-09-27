@@ -10,7 +10,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   filmes: Filme[] = [];
   historico: HistoricoUsuario;
   listagemTipo: string;
@@ -21,24 +21,24 @@ export class HomeComponent implements OnInit{
     private filmesService: FilmesService,
     private localStorageService: LocalStorageService,
     private router: Router
-    ) {
-      this.historico = new HistoricoUsuario();
-      this.listagemTipo = 'populares';
-      this.ehPaginado = true;
-      this.paginaAtual = 1;
-    }
+  ) {
+    this.historico = new HistoricoUsuario();
+    this.listagemTipo = 'populares';
+    this.ehPaginado = true;
+    this.paginaAtual = 1;
+  }
 
-  ngOnInit(): void {  
-      this.historico = this.localStorageService.carregarDados();
-  
-      this.selecionarFilmesPopulares();
-    }
+  ngOnInit(): void {
+    this.historico = this.localStorageService.carregarDados();
+
+    this.selecionarFilmesPopulares();
+  }
 
   selecionarFavoritos() {
     this.listagemTipo = 'favoritos';
     this.ehPaginado = false;
 
-    if(this.historico.filmes_ids.length == 0) {
+    if (this.historico.filmes_ids.length == 0) {
       this.filmes = [];
       return;
     }
@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit{
     });
   }
 
-  selecionarFilmesPopulares(pagina?:number) {
+  selecionarFilmesPopulares(pagina?: number) {
     pagina = pagina ? pagina : 1;
     this.paginaAtual = pagina;
 
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit{
     });
   }
 
-  selecionarFilmesMelhoresAvaliados(pagina?:number) {
+  selecionarFilmesMelhoresAvaliados(pagina?: number) {
     pagina = pagina ? pagina : 1;
     this.paginaAtual = pagina;
 
@@ -72,29 +72,29 @@ export class HomeComponent implements OnInit{
     });
   }
 
-  selecionarFilmesPorTitulo(titulo?: string) {  
+  selecionarFilmesPorTitulo(titulo?: string) {
     this.listagemTipo = 'pesquisados';
     this.ehPaginado = false;
 
-    if(!titulo) {
+    if (!titulo) {
       this.filmes = [];
       return;
     }
 
     this.router.navigate(
       ['/busca'],
-      { queryParams: { query: titulo} }
+      { queryParams: { query: titulo } }
     );
   }
 
   paginaSelecionada(pagina: number) {
     window.scroll(0, 0);
 
-    if(this.listagemTipo == 'populares') {
+    if (this.listagemTipo == 'populares') {
       this.selecionarFilmesPopulares(pagina);
     }
 
-    else if(this.listagemTipo == 'avaliados') {
+    else if (this.listagemTipo == 'avaliados') {
       this.selecionarFilmesMelhoresAvaliados(pagina);
     }
   }

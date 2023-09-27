@@ -6,8 +6,8 @@ import { Filme } from 'src/app/models/listagem-filme';
   templateUrl: './card-filme.component.html',
   styleUrls: ['./card-filme.component.css']
 })
-export class CardFilmeComponent implements OnInit{
-  @Input({required: true}) filme: Filme;
+export class CardFilmeComponent implements OnInit {
+  @Input({ required: true }) filme: Filme;
   imagem_url: string;
 
   constructor() {

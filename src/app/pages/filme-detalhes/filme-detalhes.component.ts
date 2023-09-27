@@ -32,7 +32,7 @@ export class FilmeDetalhesComponent {
     private filmeService: FilmesService,
     private toastService: ToastrService,
     private sanitizer: DomSanitizer
-    ) {
+  ) {
     this.filmeDetalhes = {
       id: 0,
       titulo: '',
@@ -90,15 +90,15 @@ export class FilmeDetalhesComponent {
   }
 
   formatarListaCreditos(lista: string[]): string {
-    return lista.map((c, i) => i == 0 ? c : ' º ' + c ).join('');
+    return lista.map((c, i) => i == 0 ? c : ' º ' + c).join('');
   }
 
   atualizarFavoritos(): void {
-    if(this.historico.filmes_ids.includes(this.filmeDetalhes.id)) {
+    if (this.historico.filmes_ids.includes(this.filmeDetalhes.id)) {
       this.toastService.success('Filme retirado da lista de favoritos', 'Success');
       this.historico.filmes_ids = this.historico.filmes_ids
         .filter(f => f != this.filmeDetalhes.id);
-        this.ehFavorito = false;
+      this.ehFavorito = false;
     }
 
     else {

@@ -27,7 +27,7 @@ export class FilmesService {
   }
 
   public selecionarFilmesPorTitulo(titulo: string): Observable<Filme[]> {
-    const query: string  = titulo.split(' ').join('+');
+    const query: string = titulo.split(' ').join('+');
 
     const url = `https://api.themoviedb.org/3/search/movie?include_adult=false&query=${query}&language=pt-BR&page=1`;
 
@@ -39,7 +39,7 @@ export class FilmesService {
   }
 
   public selecionarFilmesBuscaPorTitulo(titulo: string): Observable<FilmeBusca[]> {
-    const query: string  = titulo.split(' ').join('+');
+    const query: string = titulo.split(' ').join('+');
 
     const url = `https://api.themoviedb.org/3/search/movie?include_adult=false&query=${query}&language=pt-BR&page=1`;
 
@@ -54,9 +54,9 @@ export class FilmesService {
     const url = `https://api.themoviedb.org/3/movie/${id}?language=pt-BR`;
 
     return this.http.get<any>(url, this.obterHeaderAutorizacao())
-    .pipe(
-      map(detalhesFilme => this.mapearDetalhesFilme(detalhesFilme))
-    );
+      .pipe(
+        map(detalhesFilme => this.mapearDetalhesFilme(detalhesFilme))
+      );
   }
 
 
@@ -76,10 +76,10 @@ export class FilmesService {
     const url = "https://api.themoviedb.org/3/movie/popular?language=pt-BR&page=" + pagina;
 
     return this.http.get<any>(url, this.obterHeaderAutorizacao())
-    .pipe(
-      map(obj => obj.results),
-      map(results => this.mapearFilmes(results))
-    );
+      .pipe(
+        map(obj => obj.results),
+        map(results => this.mapearFilmes(results))
+      );
   }
 
   public selecionarFilmesMelhoresAvaliados(pagina?: number): Observable<Filme[]> {
@@ -91,7 +91,7 @@ export class FilmesService {
       .pipe(
         map(obj => obj.results),
         map(results => this.mapearFilmes(results))
-    );
+      );
   }
 
   public selecionarFilmesPorIds(ids: number[]): Observable<Filme[]> {
@@ -104,10 +104,10 @@ export class FilmesService {
     const url = `https://api.themoviedb.org/3/movie/${id}/videos?language=pt-BR`;
 
     return this.http.get<any>(url, this.obterHeaderAutorizacao())
-    .pipe(
-      map(obj => obj.results),
-      map(results => this.mapearFilmeTrailer(results))
-    );
+      .pipe(
+        map(obj => obj.results),
+        map(results => this.mapearFilmeTrailer(results))
+      );
   }
 
   public selecionarAvaliacoesPorId(id: number) {
@@ -198,7 +198,7 @@ export class FilmesService {
     return filmesMapeados;
   }
 
-  
+
   private mapearFilmesBusca(obj: any[]): FilmeBusca[] {
     const filmesMapeados = obj.map(filme => this.mapearFilmeBusca(filme));
     return filmesMapeados;
