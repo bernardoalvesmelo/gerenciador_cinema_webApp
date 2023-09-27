@@ -1,0 +1,8 @@
+    <div class="d-flex flex-wrap gap-2 align-items-center">
+        <img [ngSrc]="'https://image.tmdb.org/t/p/w200' + pessoa.caminho_avatar" width="200" height="200"
+            class="avatar-img img-fluid rounded-circle" />
+            <a routerLink="/filme-pessoa-detalhes/{{pessoa.id}}" class="fs-5 link-information text-dark text-center">
+                {{pessoa.nome}}
+            </a>
+    </div>
+

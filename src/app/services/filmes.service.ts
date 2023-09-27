@@ -9,6 +9,7 @@ import { FilmeCreditos } from '../models/filme-creditos';
 import { FilmeTrailer } from '../models/filme-trailer';
 import { Avaliacao } from '../models/filme-avaliacao';
 import { FilmeBusca } from '../models/filme-busca';
+import { FilmePessoaDetalhes } from '../models/filme-pessoa-detalhes';
 
 @Injectable({
   providedIn: 'root'
@@ -120,6 +121,15 @@ export class FilmesService {
       );
   }
 
+  public selecionarPessoaPorId(id: number): Observable<FilmePessoaDetalhes> {
+    const url = `https://api.themoviedb.org/3/person/${id}?language=pt-BR`;
+
+    return this.http.get<any>(url, this.obterHeaderAutorizacao())
+      .pipe(
+        map(obj => this.mapearFilmePessoaDetalhes(obj))
+      );
+  }
+
   private obterHeaderAutorizacao() {
     return {
       headers: new HttpHeaders({
@@ -153,8 +163,6 @@ export class FilmesService {
   }
 
   private mapearFilmeBusca(obj: any): FilmeBusca {
-    const apiGeneros: any[] = obj.genres ?? [];
-
     return {
       id: obj.id,
       titulo: obj.title,
@@ -164,18 +172,42 @@ export class FilmesService {
     }
   }
 
+  private mapearFilmePessoaDetalhes(obj: any): FilmePessoaDetalhes {
+    return {
+      id: obj.id,
+      nome: obj.name,
+      caminho_avatar: obj.profile_path,
+      conhecido_como: obj.also_known_as ? obj.also_known_as[0] ?? '' : '',
+      biografia: obj.biography
+    }
+  }
+
   private mapearCreditosFilme(obj: any[]): FilmeCreditos {
     let creditos = {
-      diretores: obj.filter(c => c.known_for_department == "Directing")?.map(c => c.name),
-      escritores: obj.filter(c => c.known_for_department == "Writing")?.map(c => c.name),
-      atores: obj.filter(c => c.known_for_department == "Acting")?.map(c => c.name)
+      diretores: obj.filter(c => c.known_for_department == "Directing")
+      ?.map(c => {
+        return {id: c.id, nome: c.name, caminho_avatar: c.profile_path ? c.profile_path : ''}
+      }),
+      escritores: obj.filter(c => c.known_for_department == "Writing")  
+      ?.map(c => {
+        return {id: c.id, nome: c.name, caminho_avatar: c.profile_path ? c.profile_path: ''}
+      }),
+      atores: obj.filter(c => c.known_for_department == "Acting")  
+      ?.map(c => {
+        return {id: c.id, nome: c.name, caminho_avatar: c.profile_path ? c.profile_path: ''}
+      }),
     }
 
     let valores = Object.values(creditos);
 
-    creditos.diretores = valores[0].filter((v, indice) => valores[0].indexOf(v) == indice);
-    creditos.escritores = valores[1].filter((v, indice) => valores[1].indexOf(v) == indice);
-    creditos.atores = valores[2].filter((v, indice) => valores[2].indexOf(v) == indice);
+    creditos.diretores = valores[0].filter(
+      (v, indice) => v.caminho_avatar != '' && valores[0].find(t => t.nome == v.nome) == valores[0][indice]);
+
+    creditos.escritores = valores[1].filter(
+      (v, indice) => v.caminho_avatar != '' && valores[1].find(t => t.nome == v.nome) == valores[1][indice]);
+
+    creditos.atores = valores[2].filter(
+      (v, indice) => v.caminho_avatar != '' && valores[2].find(t => t.nome == v.nome) == valores[2][indice]);
 
     return creditos;
   }

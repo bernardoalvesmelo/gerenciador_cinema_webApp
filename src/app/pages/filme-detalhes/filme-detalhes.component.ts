@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FilmeCreditos } from 'src/app/models/filme-creditos';
+import { FilmePessoa } from 'src/app/models/filme-pessoa';
 import { FilmeDetalhes } from 'src/app/models/filme-detalhes';
 import { FilmeTrailer } from 'src/app/models/filme-trailer';
 import { FilmesService } from 'src/app/services/filmes.service';

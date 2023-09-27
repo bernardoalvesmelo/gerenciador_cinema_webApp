@@ -3,5 +3,5 @@ export type FilmeBusca = {
     titulo: string,
     poster: string,
     data: string,
-    descricao: string,
+    descricao: string
 }

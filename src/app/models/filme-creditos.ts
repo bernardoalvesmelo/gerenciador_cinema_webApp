@@ -1,5 +1,7 @@
+import { FilmePessoa } from "./filme-pessoa"
+
 export type FilmeCreditos = {
-    diretores: string[],
-    escritores: string[],
-    atores: string[]
+    diretores: FilmePessoa[],
+    escritores: FilmePessoa[],
+    atores: FilmePessoa[]
 }

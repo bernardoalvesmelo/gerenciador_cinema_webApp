@@ -21,6 +21,8 @@ import { FilmePesquisaComponent } from './shared/filme-pesquisa/filme-pesquisa.c
 import { CardAvaliacaoComponent } from './shared/card-avaliacao/card-avaliacao.component';
 
 import { UrlSeguroPipe } from './pipes/url-seguro.pipe';
+import { CardCreditosComponent } from './shared/card-creditos/card-creditos.component';
+import { FilmePessoaDetalhesComponent } from './pages/filme-pessoa-detalhes/filme-pessoa-detalhes.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { UrlSeguroPipe } from './pipes/url-seguro.pipe';
     FilmePesquisaComponent,
     CardAvaliacaoComponent,
     BuscaComponent,
-    UrlSeguroPipe
+    UrlSeguroPipe,
+    CardCreditosComponent,
+    FilmePessoaDetalhesComponent
   ],
   imports: [
     BrowserModule,

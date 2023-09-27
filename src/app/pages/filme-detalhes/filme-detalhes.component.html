@@ -34,29 +34,29 @@
         </p>
     </div>
     <div class="d-grid">
-        <div class="row border-bottom border-dark">
+        <div class="row border-bottom border-dark my-1 py-2">
             <p class="col my-auto py-2 fw-bold align-text-center text-dark ml-auto">
                 Diretores
             </p>
-            <p class="col my-auto py-2 align-text-center text-dark ml-auto">
-                {{formatarListaCreditos(filmeCreditos.diretores)}}
-            </p>
+            <div class="col-9 d-flex flex-wrap gap-2">
+                <app-card-creditos *ngFor="let diretor of filmeCreditos.diretores" [pessoa]="diretor"></app-card-creditos>
+            </div>
         </div>
-        <div class="row border-bottom border-dark">
+        <div class="row border-bottom border-dark my-1 py-2">
             <p class="col my-auto py-2 fw-bold align-text-center text-dark ml-auto">
                 Escritores
             </p>
-            <p class="col my-auto py-2 align-text-center text-dark ml-auto">
-                {{formatarListaCreditos(filmeCreditos.escritores)}}
-            </p>
+            <div class="col-9 d-flex flex-wrap gap-2">
+                <app-card-creditos *ngFor="let escritor of filmeCreditos.escritores" [pessoa]="escritor"></app-card-creditos>
+            </div>
         </div>
-        <div class="row">
+        <div class="row my-1 py-2">
             <p class="col my-auto py-2 fw-bold align-text-center text-dark ml-auto">
                 Atores
             </p>
-            <p class="col my-auto py-2 align-text-center text-dark ml-auto">
-                {{formatarListaCreditos(filmeCreditos.atores)}}
-            </p>
+            <div class="col-9 d-flex flex-wrap gap-2">
+                <app-card-creditos *ngFor="let ator of filmeCreditos.atores" [pessoa]="ator"></app-card-creditos>
+            </div>
         </div>
     </div>
     <span *ngIf="filmeAvaliacoes.length" class="d-flex w-100 justify-content-center">
