@@ -206,13 +206,13 @@ export class FilmesService {
     let valores = Object.values(creditos);
 
     creditos.diretores = valores[0].filter(
-      (v, indice) => v.caminho_avatar != '' && valores[0].find(t => t.nome == v.nome) == valores[0][indice]);
+      (v, indice) => valores[0].find(t => t.nome == v.nome) == valores[0][indice]);
 
     creditos.escritores = valores[1].filter(
-      (v, indice) => v.caminho_avatar != '' && valores[1].find(t => t.nome == v.nome) == valores[1][indice]);
+      (v, indice) => valores[1].find(t => t.nome == v.nome) == valores[1][indice]);
 
     creditos.atores = valores[2].filter(
-      (v, indice) => v.caminho_avatar != '' && valores[2].find(t => t.nome == v.nome) == valores[2][indice]);
+      (v, indice) => valores[2].find(t => t.nome == v.nome) == valores[2][indice]);
 
     return creditos;
   }

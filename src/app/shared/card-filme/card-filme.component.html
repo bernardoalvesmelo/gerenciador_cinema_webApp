@@ -1,5 +1,5 @@
 <div class="d-flex flex-column justify-content-end gap-2 text-center">
-    <img routerLink="/filme-detalhes/{{filme.id}}" role="button" [ngSrc]="imagem_url" width="400" height="600"
+    <img *ngIf="filme.poster != ''" routerLink="/filme-detalhes/{{filme.id}}" role="button" [ngSrc]="imagem_url" width="400" height="600"
         class="img-fluid rounded-3" />
     <a routerLink="/filme-detalhes/{{filme.id}}" class="fs-5 link-information text-decoration-none">
         {{filme.titulo}}

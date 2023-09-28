@@ -4,7 +4,8 @@
 
     <div class="row">
         <div class="col-7 col-md-3 col-lg-2 my-3">
-            <img [ngSrc]="'https://image.tmdb.org/t/p/original' + pessoaDetalhes.caminho_avatar"
+            <img *ngIf="pessoaDetalhes.caminho_avatar != ''"
+                [ngSrc]="'https://image.tmdb.org/t/p/original' + pessoaDetalhes.caminho_avatar"
                 class="img-fluid rounded-3" width="400" height="600" alt="" />
         </div>
         <div class="d-grid bg-light col-12 col-md col-lg m-0 rounded-3">
