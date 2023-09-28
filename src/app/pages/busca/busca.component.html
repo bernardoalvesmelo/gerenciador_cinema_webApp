@@ -1,6 +1,19 @@
-<app-filme-pesquisa (onTituloSelecionado)="selecionarFilmesDetalhesPorTitulo($event)"></app-filme-pesquisa>
-<div class="container">
-    <div *ngFor="let filmeBusca of filmesBusca"
+<app-filme-pesquisa (onTituloSelecionado)="selecionarFilmeBuscaPorParametros($event)"></app-filme-pesquisa>
+<div class="container my-2">
+    <div class="row gap-3">
+        <p [class.lbl-selecionado]="tipoLista == 'filme'"
+            class="lbl-categoria col-12 col-md col-lg fw-semibold text-dark text-center fs-5 bg-light  rounded-3 my-2"
+            (click)="selecionarLista('filme')" role="button">
+            Visualizar Filmes
+        </p>
+        <p [class.lbl-selecionado]="tipoLista == 'pessoa'"
+            class="lbl-categoria col-12 col-md col-lg  fw-semibold text-dark text-center fs-5 bg-light rounded-3 my-2"
+            (click)="selecionarLista('pessoa')" role="button">
+            Visualizar Pessoas
+        </p>
+    </div>
+<div *ngIf="tipoLista == 'filme'" class="">
+    <div *ngFor="let filmeBusca of filmeBuscaListas.filmes"
         class="row justify-content-center bg-light rounded-3 my-2 py-2 border border-dark">
         <div class="col-7 col-md-3 col-lg-2">
             <img routerLink="/filme-detalhes/{{filmeBusca.id}}" role="button"
@@ -16,4 +29,14 @@
             <p class="p-1 text-start">{{filmeBusca.data.split('-')[0]}}</p>
         </div>
     </div>
+</div>
+<div *ngIf="tipoLista == 'pessoa'" class="row g-3 mb-3">
+    <div *ngFor="let pessoa of filmeBuscaListas.pessoas" class="col-12 col-md-4 col-lg-2">
+        <img [ngSrc]="'https://image.tmdb.org/t/p/w200' + pessoa.caminho_avatar" width="400" height="600"
+            class="img-fluid rounded-3" />
+        <a routerLink="/filme-pessoa-detalhes/{{pessoa.id}}" class="fs-5 link-information text-dark text-center">
+            {{pessoa.nome}}
+        </a>
+    </div>
+</div>
 </div>

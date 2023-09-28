@@ -38,7 +38,7 @@
             <p class="col my-auto py-2 fw-bold align-text-center text-dark ml-auto">
                 Diretores
             </p>
-            <div class="col-9 d-flex flex-wrap gap-2">
+            <div class="col-9 d-flex flex-wrap gap-3">
                 <app-card-creditos *ngFor="let diretor of filmeCreditos.diretores" [pessoa]="diretor"></app-card-creditos>
             </div>
         </div>
@@ -46,7 +46,7 @@
             <p class="col my-auto py-2 fw-bold align-text-center text-dark ml-auto">
                 Escritores
             </p>
-            <div class="col-9 d-flex flex-wrap gap-2">
+            <div class="col-9 d-flex flex-wrap gap-3">
                 <app-card-creditos *ngFor="let escritor of filmeCreditos.escritores" [pessoa]="escritor"></app-card-creditos>
             </div>
         </div>
@@ -54,7 +54,7 @@
             <p class="col my-auto py-2 fw-bold align-text-center text-dark ml-auto">
                 Atores
             </p>
-            <div class="col-9 d-flex flex-wrap gap-2">
+            <div class="col-9 d-flex flex-wrap gap-3">
                 <app-card-creditos *ngFor="let ator of filmeCreditos.atores" [pessoa]="ator"></app-card-creditos>
             </div>
         </div>

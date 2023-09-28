@@ -10,6 +10,8 @@ import { FilmeTrailer } from '../models/filme-trailer';
 import { Avaliacao } from '../models/filme-avaliacao';
 import { FilmeBusca } from '../models/filme-busca';
 import { FilmePessoaDetalhes } from '../models/filme-pessoa-detalhes';
+import { FilmePessoa } from '../models/filme-pessoa';
+import { FilmeBuscaListas } from '../models/filme-busca-listas';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +50,18 @@ export class FilmesService {
       .pipe(
         map(obj => obj.results),
         map(results => this.mapearFilmesBusca(results))
+      );
+  }
+
+  public selecionarFilmeBuscaPorParametros(parametros: string): Observable<FilmeBuscaListas> {
+    const query: string = parametros.split(' ').join('+');
+
+    const url = `https://api.themoviedb.org/3/search/multi?include_adult=false&query=${query}&language=pt-BR&page=1`;
+
+    return this.http.get<any>(url, this.obterHeaderAutorizacao())
+      .pipe(
+        map(obj => obj.results),
+        map(results => this.mapearBusca(results))
       );
   }
 
@@ -184,18 +198,9 @@ export class FilmesService {
 
   private mapearCreditosFilme(obj: any[]): FilmeCreditos {
     let creditos = {
-      diretores: obj.filter(c => c.known_for_department == "Directing")
-      ?.map(c => {
-        return {id: c.id, nome: c.name, caminho_avatar: c.profile_path ? c.profile_path : ''}
-      }),
-      escritores: obj.filter(c => c.known_for_department == "Writing")  
-      ?.map(c => {
-        return {id: c.id, nome: c.name, caminho_avatar: c.profile_path ? c.profile_path: ''}
-      }),
-      atores: obj.filter(c => c.known_for_department == "Acting")  
-      ?.map(c => {
-        return {id: c.id, nome: c.name, caminho_avatar: c.profile_path ? c.profile_path: ''}
-      }),
+      diretores: obj.filter(c => c.known_for_department == "Directing")?.map(c => this.mapearFilmePessoa(c)),
+      escritores: obj.filter(c => c.known_for_department == "Writing")?.map(c => this.mapearFilmePessoa(c)),
+      atores: obj.filter(c => c.known_for_department == "Acting")?.map(c => this.mapearFilmePessoa(c)),
     }
 
     let valores = Object.values(creditos);
@@ -210,6 +215,13 @@ export class FilmesService {
       (v, indice) => v.caminho_avatar != '' && valores[2].find(t => t.nome == v.nome) == valores[2][indice]);
 
     return creditos;
+  }
+
+  private mapearFilmePessoa(obj: any) {
+    return {
+      id: obj.id, 
+      nome: obj.name, 
+      caminho_avatar: obj.profile_path ? obj.profile_path : ''}
   }
 
   private mapearFilmeTrailer(obj: any): FilmeTrailer {
@@ -234,6 +246,26 @@ export class FilmesService {
   private mapearFilmesBusca(obj: any[]): FilmeBusca[] {
     const filmesMapeados = obj.map(filme => this.mapearFilmeBusca(filme));
     return filmesMapeados;
+  }
+
+  private mapearBusca(obj: any[]): FilmeBuscaListas {
+    const filmesBusca: FilmeBusca[] = [];
+    const pessoasBusca: FilmePessoa[] = [];
+
+    obj.forEach(o => {
+      if(o.media_type == 'movie') {
+        filmesBusca.push(this.mapearFilmeBusca(o));
+      }
+
+      else if(o.media_type == 'person') {
+        pessoasBusca.push(this.mapearFilmePessoa(o));
+      }     
+    });
+
+    return { 
+      filmes: filmesBusca,
+      pessoas: pessoasBusca
+    };
   }
 
   private mapearAvaliacoes(obj: any[]): Avaliacao[] {

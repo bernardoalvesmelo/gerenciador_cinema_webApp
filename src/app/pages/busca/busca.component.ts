@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FilmeBusca } from 'src/app/models/filme-busca';
+import { FilmeBuscaListas } from 'src/app/models/filme-busca-listas';
 import { FilmesService } from 'src/app/services/filmes.service';
 
 @Component({
@@ -9,30 +9,43 @@ import { FilmesService } from 'src/app/services/filmes.service';
   styleUrls: ['./busca.component.css']
 })
 export class BuscaComponent implements OnInit{
-  filmesBusca: FilmeBusca[];
+  filmeBuscaListas: FilmeBuscaListas;
+  tipoLista: string;
 
   constructor(
     private filmesService: FilmesService,
     private route: ActivatedRoute) {
-    this.filmesBusca = []
+    this.filmeBuscaListas = {
+      filmes: [], 
+      pessoas:[]
+    };
+
+    this.tipoLista = 'filme';
   }
 
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
-        this.selecionarFilmesDetalhesPorTitulo(params['query']);
+        this.selecionarFilmeBuscaPorParametros(params['query']);
       }
     );
   }
 
-  selecionarFilmesDetalhesPorTitulo(titulo: string) {  
-    if(titulo == '') {
-      this.filmesBusca = [];
+  selecionarFilmeBuscaPorParametros(parametros: string) {  
+    if(parametros == '') {
+      this.filmeBuscaListas = {
+      filmes: [], 
+      pessoas:[]
+      };
       return;
     }
 
-    this.filmesService.selecionarFilmesBuscaPorTitulo(titulo).subscribe(filmesDetalhes => {
-      this.filmesBusca = filmesDetalhes;
+    this.filmesService.selecionarFilmeBuscaPorParametros(parametros).subscribe(filmeBuscaListas => {
+      this.filmeBuscaListas = filmeBuscaListas;
     });
+  }
+
+  selecionarLista(tipoLista: string) {
+    this.tipoLista = tipoLista;
   }
 }
