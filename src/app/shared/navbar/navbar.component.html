@@ -1,11 +1,13 @@
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-light bg-info">
   <div class="container-fluid px-md-4 px-lg-4">
-    <a class="navbar-brand text-primary fw-semibold" routerLink="/">
+    <a class="navbar-brand text-light fw-semibold" routerLink="/">
       APMDb
     </a>
+    <app-filme-pesquisa class="w-50"
+      (onTituloSelecionado)="selecionarFilmeBuscaPorParametros($event)"></app-filme-pesquisa>
     <div class="d-flex gap-3">
       <a routerLink="/home" class="nav-link">
-        <button routerLinkActive="btn-primary text-light" class="btn btn-sm btn-outline-primary rounded-2">
+        <button routerLinkActive="btn-info bg-info text-light" class="btn btn-sm btn-light rounded-2">
           Home
         </button>
       </a>

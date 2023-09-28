@@ -1,14 +1,14 @@
 <div class="d-flex flex-column flex-wrap container">
     <h1 class="text-dark">{{pessoaDetalhes.nome}}</h1>
     <h2 class="text-dark">{{pessoaDetalhes.conhecido_como}}</h2>
-    <div class="row border rounded-3">
-        <div class="col-12 col-md-5 col-lg-3">
-            <img role="button"
-            [ngSrc]="'https://image.tmdb.org/t/p/original' + pessoaDetalhes.caminho_avatar"
-            class="img-fluid rounded-3 m-2" width="400" height="600" alt="" />
+
+    <div class="row">
+        <div class="col-7 col-md-3 col-lg-2 my-3">
+            <img [ngSrc]="'https://image.tmdb.org/t/p/original' + pessoaDetalhes.caminho_avatar"
+                class="img-fluid rounded-3" width="400" height="600" alt="" />
         </div>
-        <div class="col d-flex">
-            <p class="text-dark p-1">{{pessoaDetalhes.biografia}}</p>
+        <div class="d-grid bg-light col-12 col-md col-lg m-0 rounded-3">
+            <p class="border-bottom bg-light p-2">{{pessoaDetalhes.biografia}}</p>
         </div>
     </div>
 </div>

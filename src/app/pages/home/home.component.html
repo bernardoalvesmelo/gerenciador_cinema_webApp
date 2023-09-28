@@ -15,14 +15,7 @@
             (click)="selecionarFavoritos()" role="button">
             Filmes Favoritos
         </p>
-        <p [class.lbl-selecionado]="listagemTipo == 'pesquisados'"
-            class="lbl-categoria col-12 col-md col-lg fw-semibold text-dark text-center fs-5 bg-light rounded-3 my-2"
-            (click)="selecionarFilmesPorTitulo()" role="button">
-            Pesquisar
-        </p>
     </div>
-    <app-filme-pesquisa *ngIf="listagemTipo == 'pesquisados' "
-        (onTituloSelecionado)="selecionarFilmesPorTitulo($event)"></app-filme-pesquisa>
     <app-pagination *ngIf="ehPaginado" class="d-flex justify-content-center"
         (onPaginaSelecionada)="paginaSelecionada($event)" [page]="paginaAtual">
     </app-pagination>

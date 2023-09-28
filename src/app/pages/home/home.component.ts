@@ -19,8 +19,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private filmesService: FilmesService,
-    private localStorageService: LocalStorageService,
-    private router: Router
+    private localStorageService: LocalStorageService
   ) {
     this.historico = new HistoricoUsuario();
     this.listagemTipo = 'populares';
@@ -70,21 +69,6 @@ export class HomeComponent implements OnInit {
     this.filmesService.selecionarFilmesMelhoresAvaliados(pagina).subscribe(filmes => {
       this.filmes = filmes;
     });
-  }
-
-  selecionarFilmesPorTitulo(titulo?: string) {
-    this.listagemTipo = 'pesquisados';
-    this.ehPaginado = false;
-
-    if (!titulo) {
-      this.filmes = [];
-      return;
-    }
-
-    this.router.navigate(
-      ['/busca'],
-      { queryParams: { query: titulo } }
-    );
   }
 
   paginaSelecionada(pagina: number) {
