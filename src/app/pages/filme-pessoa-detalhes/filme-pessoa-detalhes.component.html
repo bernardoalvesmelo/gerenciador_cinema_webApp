@@ -1,9 +1,8 @@
 <div class="d-flex flex-column flex-wrap container">
     <h1 class="text-dark">{{pessoaDetalhes.nome}}</h1>
     <h2 class="text-dark">{{pessoaDetalhes.conhecido_como}}</h2>
-
-    <div class="row">
-        <div class="col-7 col-md-3 col-lg-2 my-3">
+    <div class="row w-100">
+        <div class="col-7 col-md-6 col-lg-3 my-1">
             <img *ngIf="pessoaDetalhes.caminho_avatar != ''"
                 [ngSrc]="'https://image.tmdb.org/t/p/original' + pessoaDetalhes.caminho_avatar"
                 class="img-fluid rounded-3" width="400" height="600" alt="" />
@@ -11,5 +10,16 @@
         <div class="d-grid bg-light col-12 col-md col-lg m-0 rounded-3">
             <p class="border-bottom bg-light p-2">{{pessoaDetalhes.biografia}}</p>
         </div>
+    </div>
+    <span *ngIf="filmes.length" class="d-flex w-100 justify-content-center">
+        <button (click)="alterarVisualizacaoFilmes()"
+            [ngClass]="filmesVisivel ? 'btn-ocultar text-light bg-dark' : 'btn-visualizar text-dark bg-light' "
+            class="my-3 text-center w-90 w-md-50 w-lg-50 rounded-pill">
+            <h2>{{filmesVisivel ? 'Ocultar Filmes' : 'Visualizar Filmes'}}</h2>
+        </button>
+    </span>
+    <div *ngIf="filmesVisivel" class="d-grid border my-2 p-3 rounded-3 w-100">
+        <h1>Filmes</h1>
+        <app-filme-listagem [filmes]="filmes"></app-filme-listagem>
     </div>
 </div>

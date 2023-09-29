@@ -23,6 +23,7 @@ import { CardAvaliacaoComponent } from './shared/card-avaliacao/card-avaliacao.c
 import { UrlSeguroPipe } from './pipes/url-seguro.pipe';
 import { CardCreditosComponent } from './shared/card-creditos/card-creditos.component';
 import { FilmePessoaDetalhesComponent } from './pages/filme-pessoa-detalhes/filme-pessoa-detalhes.component';
+import { FilmeListagemComponent } from './shared/filme-listagem/filme-listagem.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { FilmePessoaDetalhesComponent } from './pages/filme-pessoa-detalhes/film
     BuscaComponent,
     UrlSeguroPipe,
     CardCreditosComponent,
-    FilmePessoaDetalhesComponent
+    FilmePessoaDetalhesComponent,
+    FilmeListagemComponent
   ],
   imports: [
     BrowserModule,

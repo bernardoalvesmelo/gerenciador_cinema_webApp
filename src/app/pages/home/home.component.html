@@ -1,28 +1,45 @@
 <div class="container d-grid gap-3">
-    <div class="row gap-3">
-        <p [class.lbl-selecionado]="listagemTipo == 'populares'"
-            class="lbl-categoria col-12 col-md col-lg fw-semibold text-dark text-center fs-5 bg-light  rounded-3 my-2"
-            (click)="selecionarFilmesPopulares()" role="button">
-            Filmes em Alta
-        </p>
-        <p [class.lbl-selecionado]="listagemTipo == 'avaliados'"
-            class="lbl-categoria col-12 col-md col-lg  fw-semibold text-dark text-center fs-5 bg-light rounded-3 my-2"
-            (click)="selecionarFilmesMelhoresAvaliados()" role="button">
-            Filmes Por Nota
-        </p>
-        <p [class.lbl-selecionado]="listagemTipo == 'favoritos'"
-            class="lbl-categoria col-12 col-md col-lg fw-semibold text-dark text-center fs-5 bg-light rounded-3 my-2"
-            (click)="selecionarFavoritos()" role="button">
-            Filmes Favoritos
-        </p>
-    </div>
-    <app-pagination *ngIf="ehPaginado" class="d-flex justify-content-center"
-        (onPaginaSelecionada)="paginaSelecionada($event)" [page]="paginaAtual">
-    </app-pagination>
-    <div class="row g-3 mb-3">
-        <app-card-filme *ngFor="let filme of filmes" [filme]="filme" class="col-12 col-md-4 col-lg-2"></app-card-filme>
-    </div>
-    <app-pagination *ngIf="ehPaginado" class="d-flex justify-content-center"
-        (onPaginaSelecionada)="paginaSelecionada($event)" [page]="paginaAtual">
-    </app-pagination>
+
+    <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-underline d-flex justify-content-evenly my-2">
+        <li [ngbNavItem]="1" class="bg-light rounded-3">
+            <button ngbNavLink class="px-2 fw-semibold text-dark text-center fs-5"
+                (click)="selecionarFilmesPopulares()">
+                Filmes em Alta
+            </button>
+            <ng-template ngbNavContent>
+                <app-pagination class="d-flex justify-content-center" (onPaginaSelecionada)="paginaSelecionada($event)"
+                    [page]="paginaAtual">
+                </app-pagination>
+                <app-filme-listagem [filmes]="filmes"></app-filme-listagem>
+                <app-pagination class="d-flex justify-content-center" (onPaginaSelecionada)="paginaSelecionada($event)"
+                    [page]="paginaAtual">
+                </app-pagination>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="2" class="bg-light rounded-3">
+            <button ngbNavLink class="px-2 fw-semibold text-dark text-center fs-5"
+                (click)="selecionarFilmesMelhoresAvaliados()" role="button">
+                Filmes Por Nota
+            </button>
+            <ng-template ngbNavContent>
+                <app-pagination class="d-flex justify-content-center" (onPaginaSelecionada)="paginaSelecionada($event)"
+                    [page]="paginaAtual">
+                </app-pagination>
+                <app-filme-listagem [filmes]="filmes"></app-filme-listagem>
+                <app-pagination class="d-flex justify-content-center" (onPaginaSelecionada)="paginaSelecionada($event)"
+                    [page]="paginaAtual">
+                </app-pagination>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="3" class="bg-light rounded-3">
+            <button ngbNavLink class="px-2 fw-semibold text-dark text-center fs-5"
+                (click)="selecionarFavoritos()" role="button">
+                Filmes Favoritos
+            </button>
+            <ng-template ngbNavContent>
+                <app-filme-listagem [filmes]="filmes"></app-filme-listagem>
+            </ng-template>
+        </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
 </div>

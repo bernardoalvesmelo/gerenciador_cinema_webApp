@@ -41,9 +41,20 @@ export class FilmesService {
       );
   }
 
+  public selecionarFilmesPorPessoaId(id: number): Observable<Filme[]> {
+
+    const url = `https://api.themoviedb.org/3/person/${id}/movie_credits?language=pt-BR`;
+
+    return this.http.get<any>(url, this.obterHeaderAutorizacao())
+      .pipe(
+        map(obj => obj.cast),
+        map(cast => this.mapearFilmes(cast))
+      );
+  }
+
   public selecionarFilmesBuscaPorTitulo(titulo: string): Observable<FilmeBusca[]> {
     const query: string = titulo.split(' ').join('+');
-
+    
     const url = `https://api.themoviedb.org/3/search/movie?include_adult=false&query=${query}&language=pt-BR&page=1`;
 
     return this.http.get<any>(url, this.obterHeaderAutorizacao())
@@ -55,7 +66,7 @@ export class FilmesService {
 
   public selecionarFilmeBuscaPorParametros(parametros: string): Observable<FilmeBuscaListas> {
     const query: string = parametros.split(' ').join('+');
-
+    console.log(query);
     const url = `https://api.themoviedb.org/3/search/multi?include_adult=false&query=${query}&language=pt-BR&page=1`;
 
     return this.http.get<any>(url, this.obterHeaderAutorizacao())
@@ -157,7 +168,7 @@ export class FilmesService {
     return {
       id: obj.id,
       titulo: obj.title,
-      poster: obj.poster_path
+      poster: obj.poster_path ?? ''
     }
   }
 
@@ -167,7 +178,7 @@ export class FilmesService {
     return {
       id: obj.id,
       titulo: obj.title,
-      poster: obj.poster_path,
+      poster: obj.poster_path ?? '',
       votos: obj.vote_count,
       nota: Math.round(obj.vote_average * 100) / 100,
       data: obj.release_date,
@@ -180,7 +191,7 @@ export class FilmesService {
     return {
       id: obj.id,
       titulo: obj.title,
-      poster: obj.poster_path,
+      poster: obj.poster_path ?? '',
       data: obj.release_date,
       descricao: obj.overview
     }
@@ -190,7 +201,7 @@ export class FilmesService {
     return {
       id: obj.id,
       nome: obj.name,
-      caminho_avatar: obj.profile_path,
+      caminho_avatar: obj.profile_path ?? '',
       conhecido_como: obj.also_known_as ? obj.also_known_as[0] ?? '' : '',
       biografia: obj.biography
     }
@@ -221,7 +232,7 @@ export class FilmesService {
     return {
       id: obj.id, 
       nome: obj.name, 
-      caminho_avatar: obj.profile_path ? obj.profile_path : ''}
+      caminho_avatar: obj.profile_path ?? ''}
   }
 
   private mapearFilmeTrailer(obj: any): FilmeTrailer {

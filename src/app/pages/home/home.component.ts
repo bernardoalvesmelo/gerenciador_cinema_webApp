@@ -13,8 +13,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 export class HomeComponent implements OnInit {
   filmes: Filme[] = [];
   historico: HistoricoUsuario;
-  listagemTipo: string;
-  ehPaginado: boolean;
+  listagemTipo:  'avaliados' | 'favoritos' | 'populares';
   paginaAtual: number;
 
   constructor(
@@ -23,7 +22,6 @@ export class HomeComponent implements OnInit {
   ) {
     this.historico = new HistoricoUsuario();
     this.listagemTipo = 'populares';
-    this.ehPaginado = true;
     this.paginaAtual = 1;
   }
 
@@ -35,7 +33,6 @@ export class HomeComponent implements OnInit {
 
   selecionarFavoritos() {
     this.listagemTipo = 'favoritos';
-    this.ehPaginado = false;
 
     if (this.historico.filmes_ids.length == 0) {
       this.filmes = [];
@@ -52,7 +49,6 @@ export class HomeComponent implements OnInit {
     this.paginaAtual = pagina;
 
     this.listagemTipo = 'populares';
-    this.ehPaginado = true;
 
     this.filmesService.selecionarFilmesMaisPopulares(pagina).subscribe(filmes => {
       this.filmes = filmes;
@@ -64,7 +60,6 @@ export class HomeComponent implements OnInit {
     this.paginaAtual = pagina;
 
     this.listagemTipo = 'avaliados';
-    this.ehPaginado = true;
 
     this.filmesService.selecionarFilmesMelhoresAvaliados(pagina).subscribe(filmes => {
       this.filmes = filmes;

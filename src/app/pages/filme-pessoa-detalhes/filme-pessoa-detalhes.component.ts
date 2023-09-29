@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FilmePessoaDetalhes } from 'src/app/models/filme-pessoa-detalhes';
+import { Filme } from 'src/app/models/listagem-filme';
 import { FilmesService } from 'src/app/services/filmes.service';
 
 @Component({
@@ -10,6 +11,9 @@ import { FilmesService } from 'src/app/services/filmes.service';
 })
 export class FilmePessoaDetalhesComponent implements OnInit{
   pessoaDetalhes: FilmePessoaDetalhes;
+  filmes: Filme[];
+  filmesVisivel: boolean;
+
   
   constructor( 
     private route: ActivatedRoute,
@@ -21,6 +25,9 @@ export class FilmePessoaDetalhesComponent implements OnInit{
       conhecido_como: '',
       biografia: ''
     }
+    
+    this.filmes = [];
+    this.filmesVisivel = false;
   }
 
   ngOnInit(): void {
@@ -28,6 +35,14 @@ export class FilmePessoaDetalhesComponent implements OnInit{
 
     this.filmeService.selecionarPessoaPorId(id).subscribe(pessoaDetalhes => {
       this.pessoaDetalhes = pessoaDetalhes;
-    })
+    });
+
+    this.filmeService.selecionarFilmesPorPessoaId(id).subscribe(filmes => {
+      this.filmes = filmes;
+    });
+  }
+
+  alterarVisualizacaoFilmes() {
+    this.filmesVisivel = !this.filmesVisivel;
   }
 }
